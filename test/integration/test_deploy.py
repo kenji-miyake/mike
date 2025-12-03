@@ -1,5 +1,4 @@
 import os
-import sys
 import unittest
 
 from . import assertPopen, assertOutput
@@ -63,8 +62,6 @@ class TestDeploy(DeployTestCase):
             versions.VersionInfo('1.0', '1.0.0')
         ])
 
-    @unittest.skipIf(sys.platform == 'win32' and sys.version_info < (3, 8),
-                     'this version of realpath fails to resolve symlinks')
     def test_aliases(self):
         assertPopen(['mike', 'deploy', '1.0', 'latest'])
         check_call_silent(['git', 'checkout', 'gh-pages'])

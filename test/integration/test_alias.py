@@ -1,5 +1,4 @@
 import os
-import sys
 import unittest
 
 from . import assertPopen, assertOutput
@@ -55,8 +54,6 @@ class TestAlias(AliasTestCase):
         check_call_silent(['git', 'add', 'mkdocs.yml', 'docs'])
         check_call_silent(['git', 'commit', '-m', 'initial commit'])
 
-    @unittest.skipIf(sys.platform == 'win32' and sys.version_info < (3, 8),
-                     'this version of realpath fails to resolve symlinks')
     def test_alias(self):
         self._deploy()
         assertPopen(['mike', 'alias', '1.0', 'latest'])
@@ -66,8 +63,6 @@ class TestAlias(AliasTestCase):
         self.assertEqual(os.path.normcase(os.path.realpath('latest')),
                          os.path.normcase(os.path.abspath('1.0')))
 
-    @unittest.skipIf(sys.platform == 'win32' and sys.version_info < (3, 8),
-                     'this version of realpath fails to resolve symlinks')
     def test_update_aliases(self):
         assertPopen(['mike', 'deploy', '1.0', 'latest'])
         assertPopen(['mike', 'deploy', '2.0'])

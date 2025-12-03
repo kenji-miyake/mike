@@ -1,4 +1,3 @@
-import sys
 import unittest
 
 from .. import *
@@ -17,11 +16,8 @@ class TestGitBranchHTTPHandler(unittest.TestCase):
 
         class Handler(server.GitBranchHTTPHandler):
             branch = 'branch'
-
-            # Use a buffered response in Python 3.6+, since it's easier for
-            # testing.
-            if sys.version_info >= (3, 6):
-                wbufsize = -1
+            # Use a buffered response, since it's easier for testing.
+            wbufsize = -1
 
             def log_message(self, *args):
                 pass
